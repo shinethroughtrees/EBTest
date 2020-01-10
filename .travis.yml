@@ -5,7 +5,7 @@ before_install:
   - docker build -t shinethroughtrees/EBTest -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run shinethroughtrees/EBTest npm test -- --coverage
+  - docker run -e CI=true shinethroughtrees/EBTest npm test -- --coverage
 
 after_success:
   - docker build -t shinethroughtrees/multi-client ./client
@@ -19,4 +19,3 @@ after_success:
   - docker push shinethroughtrees/multi-nginx
   - docker push shinethroughtrees/multi-server
   - docker push shinethroughtrees/multi-worker
-  
