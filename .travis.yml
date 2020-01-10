@@ -8,14 +8,14 @@ script:
   - docker run -e CI=true shinethroughtrees/test npm test -- --coverage
 
 after_success:
-  - docker build -t shinethroughtrees/multi-client ./client
-  - docker build -t shinethroughtrees/multi-nginx ./nginx
-  - docker build -t shinethroughtrees/multi-server ./server
-  - docker build -t shinethroughtrees/multi-worker ./worker
+  - docker build -t lim6112j/multi-client ./client
+  - docker build -t lim6112j/multi-nginx ./nginx
+  - docker build -t lim6112j/multi-server ./server
+  - docker build -t lim6112j/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # push image to docker hub
-  - docker push shinethroughtrees/multi-client
-  - docker push shinethroughtrees/multi-nginx
-  - docker push shinethroughtrees/multi-server
-  - docker push shinethroughtrees/multi-worker
+  - docker push lim6112j/multi-client
+  - docker push lim6112j/multi-nginx
+  - docker push lim6112j/multi-server
+  - docker push lim6112j/multi-worker
