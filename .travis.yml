@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t shinethroughtrees/EBTest -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run shinethroughtrees/EBTest npm test -- --coverage
+
+after_success:
+  - docker build -t shinethroughtrees/multi-client ./client
+  - docker build -t shinethroughtrees/multi-nginx ./nginx
+  - docker build -t shinethroughtrees/multi-server ./server
+  - docker build -t shinethroughtrees/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # push image to docker hub
+  - docker push shinethroughtrees/multi-client
+  - docker push shinethroughtrees/multi-nginx
+  - docker push shinethroughtrees/multi-server
+  - docker push shinethroughtrees/multi-worker
+  
