@@ -19,3 +19,16 @@ after_success:
   - docker push lim6112j/multi-nginx
   - docker push lim6112j/multi-server
   - docker push lim6112j/multi-worker
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-103975427298
+  "
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key:
+      secure: "$AWS_SECRET_KEY"
